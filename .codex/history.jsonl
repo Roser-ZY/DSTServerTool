@@ -1,0 +1,10 @@
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770463724,"text":"自动部署 DST Dedicated Server 的桌面工具，支持：\n\n- 自动检测并处理 mod 更新。\n- 存档管理。\n- 自动部署并启动。\n\n> 根据操作系统确定不同的部署流程。\n\n## 技术栈\n\n核心语言和框架为 Rust + Tauri。\n### 前端\n\n- React 框架。\n- Radix-theme UI 库。\n- HTML + TypeScript + CSSS。\n### 内核\n\n- Rust。\n- Tauri 框架。"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770463780,"text":"首先安装技术栈所需要的内容，然后根据搭建一个基础的桌面应用框架。"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770464348,"text":"安装 rust 和 tauri 一来。"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770464712,"text":"运行 npm run tauri dev 并验证"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770465018,"text":"继续检查 是否能运行了"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770465216,"text":"我为什么本地item2 中运行 npm run tauri dev 报错了。failed to run 'cargo metadata' command to get workspace directory: failed to run command cargo metadata --no-deps --format-version 1: No such file or directory (os error 2)\n       Error failed to run 'cargo metadata' command to get workspace directory: failed to run command cargo metadata --no-deps --format-version 1: No such file or directory (os error 2)"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770465349,"text":"为什么你这个环境可以跑，我在 item2 zsh 里跑不了呢？你没安装 cargo 和 rus 吗"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770465417,"text":"确认一下，你的 rust，cargo 等版本都是最新稳定版本吗"}
+{"session_id":"019c37dc-3c91-7ba0-b29c-2209a97eed9c","ts":1770465452,"text":"安装在哪里了呢"}
+{"session_id":"019c37fc-498a-72c0-95df-fc28f7c16615","ts":1770465907,"text":"当前仓库是一个 rust tauri react 和 radix-theme 的代码仓库，搜索 github 上的 gitignore 仓库，在当前仓库下创建一个 .gitignore。"}

@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "identifier": "default",
+  "description": "Default permissions for core window usage.",
+  "permissions": ["core:default", "core:window:default"]
+}

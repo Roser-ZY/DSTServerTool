@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "DST Server Tool",
+  "version": "0.1.0",
+  "identifier": "com.dst.server.tool",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "DST Server Tool",
+        "width": 960,
+        "height": 640,
+        "resizable": true
+      }
+    ]
+  }
+}
