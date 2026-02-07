@@ -236,3 +236,17 @@ $RECYCLE.BIN/
 
 # Log files created by default by the nohup command
 nohup.out
+
+### Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+env/
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
