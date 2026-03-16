@@ -1,0 +1,107 @@
+meta:
+  id: FR-0001
+  name: <功能点名称>
+
+summary:
+  one_line: >
+    用一句话概括该功能做什么，偏业务语义。
+  background_and_goal: >
+    该功能产生的背景、动机与目标，说明“为什么要做”。
+
+scope:
+  in_scope:
+    - 明确该功能必须覆盖的能力
+  out_of_scope:
+    - 明确本功能刻意不包含的内容
+
+actors:
+  - name: 用户
+    role: 直接触发该功能的主体
+  - name: 系统
+    role: 被动参与或提供支持的系统
+
+triggers:
+  - type: 用户操作
+    description: 用户点击提交按钮
+  - type: 接口调用
+    description: 调用后端 API
+
+inputs:
+  - name: 输入项名称
+    description: 输入项含义
+    type: string
+    required: true
+    constraints:
+      - 非空
+      - 最大长度 255
+
+outputs:
+  success:
+    description: 功能成功时的结果
+  failure:
+    - error_code: INVALID_INPUT
+      description: 输入不合法
+
+preconditions:
+  - 用户已登录
+  - 系统状态正常
+
+postconditions:
+  - 数据被成功持久化
+  - 产生对应的业务日志
+
+functional_behavior:
+  normal_flow:
+    - step: 1
+      description: 校验输入
+    - step: 2
+      description: 执行业务逻辑
+    - step: 3
+      description: 返回处理结果
+  exception_flows:
+    - condition: 输入不合法
+      behavior: 返回错误信息
+    - condition: 权限不足
+      behavior: 拒绝操作
+
+business_rules:
+  - id: BR-001
+    description: 每个用户每天最多执行 10 次
+
+non_functional_requirements:
+  performance:
+    latency: P95 < 200ms
+  security:
+    - 必须鉴权
+    - 必须进行权限校验
+  observability:
+    - 记录关键日志
+    - 上报核心指标
+
+acceptance_criteria:
+  - given: 合法输入
+    when: 执行该功能
+    then: 返回成功结果
+  - given: 非法输入
+    when: 执行该功能
+    then: 返回错误提示
+
+examples:
+  success_example:
+    input: 示例输入
+    output: 示例输出
+  failure_example:
+    input: 非法输入
+    output: 错误信息
+
+dependencies:
+  internal:
+    - 依赖模块 A
+  external:
+    - 外部服务 B
+
+open_questions:
+  - 是否需要支持批量操作？
+
+notes:
+  - 该 FR 由 agent 自动生成，需人工 Review

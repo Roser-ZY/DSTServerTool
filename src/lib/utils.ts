@@ -1,0 +1,19 @@
+import type { ClassValue } from "clsx"
+import type { Ref } from "vue"
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+type Updater<T> = T | ((value: T) => T)
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+export function valueUpdater<T>(updaterOrValue: Updater<T>, ref: Ref<T>) {
+  const nextValue = typeof updaterOrValue === "function"
+    ? (updaterOrValue as (value: T) => T)(ref.value)
+    : updaterOrValue
+
+  ref.value
+    = nextValue
+}

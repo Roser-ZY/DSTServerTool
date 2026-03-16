@@ -1,0 +1,66 @@
+meta:
+  id: FI-0001
+  feature_ref: FR-0001
+  name: <功能点名称 - 实现方案>
+
+implementation_overview:
+  description: >
+    从工程视角描述该功能的整体实现思路，
+    说明如何在系统中落地。
+
+architecture:
+  layer: application           # ui / application / domain / infrastructure
+  modules:
+    - 模块名称 A
+    - 模块名称 B
+
+components:
+  - name: ComponentA
+    responsibility: >
+      组件的核心职责
+  - name: ComponentB
+    responsibility: >
+      组件的核心职责
+
+data_flow:
+  description: >
+    关键数据在组件之间的流转过程。
+  steps:
+    - 接收输入
+    - 业务处理
+    - 状态更新
+    - 返回结果
+
+interfaces:
+  inbound:
+    - name: 接口名称
+      description: 对外提供的接口职责
+  outbound:
+    - name: 依赖接口
+      description: 调用的外部或内部接口
+
+state_management:
+  description: >
+    是否涉及状态变更、状态存储位置及一致性要求。
+
+error_handling:
+  strategy: >
+    错误分类与统一处理策略。
+
+extensibility:
+  description: >
+    未来可能的扩展方向与当前设计预留点。
+
+technical_constraints:
+  - 不得引入新的外部依赖
+  - 必须兼容现有鉴权体系
+
+observability:
+  logs:
+    - 关键流程日志
+  metrics:
+    - 成功率
+    - 延迟
+
+notes:
+  - 本文件为实现规格，不包含具体代码

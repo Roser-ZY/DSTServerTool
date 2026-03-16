@@ -1,8 +1,13 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import vue from "@vitejs/plugin-vue";
 
-export default defineConfig(() => ({
-  plugins: [react()],
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      "@": new URL("./src", import.meta.url).pathname,
+    },
+  },
   clearScreen: false,
   server: {
     port: 5173,
@@ -11,7 +16,7 @@ export default defineConfig(() => ({
   envPrefix: ["VITE_", "TAURI_"],
   build: {
     target: ["es2020", "chrome91", "safari13"],
-    minify: !process.env.TAURI_DEBUG ? "esbuild" : false,
-    sourcemap: !!process.env.TAURI_DEBUG,
+    minify: process.env.TAURI_DEBUG ? false : "esbuild",
+    sourcemap: Boolean(process.env.TAURI_DEBUG),
   },
-}));
+});
