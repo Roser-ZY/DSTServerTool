@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: DST Mod Update
+  version: 1.0.0
+  description: Contract for triggering a mod update run and receiving results.
+paths:
+  /mod-updates:
+    post:
+      summary: Run mod update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - steam_path
+              properties:
+                steam_path:
+                  type: string
+                  description: Steam installation root path.
+      responses:
+        "200":
+          description: Update run completed.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - results
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UpdateResult"
+components:
+  schemas:
+    UpdateResult:
+      type: object
+      required:
+        - workshop_id
+        - status
+        - reason
+      properties:
+        workshop_id:
+          type: string
+        status:
+          type: string
+          enum: [updated, unchanged, missing, failed]
+        reason:
+          type: string
+        source_path:
+          type: string
+          nullable: true
+        server_mod_path:
+          type: string
+          nullable: true
