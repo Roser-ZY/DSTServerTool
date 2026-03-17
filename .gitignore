@@ -234,6 +234,9 @@ $RECYCLE.BIN/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+# Git worktrees
+.worktrees/
+
 # Log files created by default by the nohup command
 nohup.out
 
