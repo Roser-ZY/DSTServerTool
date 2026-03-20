@@ -3,9 +3,9 @@
 # Software Requirements Specification (SRS)
 
 > **标准依据**: IEEE 29148-2018 / IEEE 830  
-> **文档版本**: v0.2  
+> **文档版本**: v0.3  
 > **创建日期**: 2026-03-16  
-> **最后更新**: 2026-03-16
+> **最后更新**: 2026-03-17
 
 ---
 
@@ -14,7 +14,7 @@
 | 字段 | 内容 |
 |------|------|
 | 项目名称 | DSTServerTool |
-| 文档编号 | SRS-DSTSERVERTOOL-v0.2 |
+| 文档编号 | SRS-DSTSERVERTOOL-v0.3 |
 | 作者 | Codex |
 | 状态 | 草稿 |
 | 密级 | 内部 |
@@ -25,6 +25,7 @@
 |------|------|----------|--------|
 | v0.1 | 2026-03-16 | 基于当前仓库与目标技术栈生成初稿 | Codex |
 | v0.2 | 2026-03-16 | 按 `docs/0.0.0/Proposal.md` 重构 Feature 划分，并引入版本化需求 | Codex |
+| v0.3 | 2026-03-17 | 明确支持 Windows/MacOS 图形界面应用、Linux 远程管理、多服务器集群管理、云端部署集成 | Codex |
 
 ---
 
@@ -36,7 +37,11 @@
 
 ### 1.2 范围
 
-DSTServerTool 是一个面向 Windows 平台 DST 服务器管理员的桌面工具。系统以 Tauri 为桌面容器，前端采用 Vue + Vite + shadcn-vue，提供本地服务器准备、模组更新、默认存档准备、Token 配置、服务端启动与日志查看能力。
+DSTServerTool 是一个面向多平台 DST 服务器管理员的桌面工具。系统以 Tauri 为桌面容器，前端采用 Vue + Vite + Reka UI，提供本地服务器准备、模组更新、默认存档准备、Token 配置、服务端启动与日志查看能力。
+
+**首版 (0.0.0) 聚焦**: Windows 平台本地服务器管理。
+
+**后续版本目标**: 支持 Windows/macOS 图形界面应用、Linux 远程管理、多服务器集群管理、云端部署集成等高级功能。
 
 ### 1.3 术语与缩略词
 
@@ -82,10 +87,11 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 
 | 类型 | 要求 |
 |------|------|
-| 操作系统 | Windows 10/11 64 位 |
+| 操作系统 | Windows 10/11 64 位 (首版) / macOS 10.15+ / Linux (Ubuntu 20.04+, Debian 11+) |
 | 桌面容器 | Tauri 2.x |
-| 前端 | Vue 3 + Vite + shadcn-vue |
+| 前端 | Vue 3 + Vite + Reka UI |
 | 本地能力 | Rust（Tauri Command）+ Python 3.x 兼容层 |
+| 远程管理 | SSH/SFTP 连接 (Linux 服务器) |
 
 ### 2.4 当前实现基线
 
@@ -95,7 +101,40 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 - 前端已迁移到 Vue 3 + Vite + shadcn-vue，并已有可折叠基础壳层。
 - Python 模组更新核心已可执行。
 
-### 2.5 版本范围划分
+### 2.6 项目文件结构
+
+```
+DSTServerTool/
+├── src/                      # Vue.js 前端源码
+│   ├── components/ui/        # Reka UI 组件库
+│   ├── lib/                  # 工具函数和辅助模块
+│   ├── router/               # Vue Router 配置
+│   └── views/                # 页面组件
+├── src-tauri/                # Rust 后端 (Tauri)
+│   ├── src/
+│   │   ├── main.rs           # 入口点
+│   │   ├── utils/
+│   │   │   └── error_code.rs # 错误码定义
+│   │   ├── services/
+│   │   │   └── steam_detection.rs  # Steam/DST 检测服务
+│   │   └── commands/
+│   │       └── mod.rs        # Tauri 命令模块
+│   ├── Cargo.toml            # Rust 依赖配置
+│   └── tauri.conf.json       # Tauri 配置
+├── docs/                     # 文档目录
+│   ├── 0.0.0/
+│   │   └── Proposal.md       # 版本提案
+│   └── SRS.md                # 软件需求规格说明书
+├── devlog/                   # 开发日志目录
+│   └── SRS.md                # 开发中 SRS
+├── openspec/                 # OpenSpec 变更跟踪
+├── specs/                    # 技术规格文档
+├── mods_update/              # 模组更新脚本
+├── AGENTS.md                 # Agent 开发指南
+└── README.md                 # 项目说明文档
+```
+
+### 2.7 版本范围划分
 
 | 版本 | Feature | 说明 |
 |------|---------|------|
@@ -107,6 +146,10 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | >0.0.0 | 完整搭建向导 | 后续版本 |
 | >0.0.0 | 多配置档管理 | 后续版本 |
 | >0.0.0 | 存档备份与恢复 | 后续版本 |
+| >0.0.0 | macOS 图形界面应用 | 后续版本 |
+| >0.0.0 | Linux 远程管理 | 后续版本 |
+| >0.0.0 | 多服务器集群管理 | 后续版本 |
+| >0.0.0 | 云端部署集成 | 后续版本 |
 
 ---
 
@@ -249,6 +292,80 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 - 目标版本: `>0.0.0`
 - 描述: 系统应支持对导入存档执行备份与恢复。
 
+### Feature: macOS 图形界面应用
+
+#### FR-MACOS-001 macOS 原生支持
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应提供 macOS 平台原生图形界面应用，支持在 macOS 上本地管理 DST 服务器。
+- 成功标准: 用户可在 macOS 上完成所有 Windows 首版相同的功能操作。
+
+#### FR-MACOS-002 macOS 路径适配
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应自动检测 macOS 上的 Steam、DST 游戏目录和 Dedicated Server 目录。
+- 成功标准: 路径检测逻辑兼容 macOS 文件系统结构（~/Library/Application Support/Steam 等）。
+
+### Feature: Linux 远程管理
+
+#### FR-LINUX-001 SSH 连接管理
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持通过 SSH 连接远程 Linux 服务器进行管理。
+- 成功标准: 用户可配置 SSH 连接信息（主机、端口、用户名、密钥/密码）并保存多个服务器连接。
+
+#### FR-LINUX-002 远程路径检测
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持在远程 Linux 服务器上检测 DST Dedicated Server 安装路径。
+- 成功标准: 用户可通过远程命令查询服务器目录结构并选择目标路径。
+
+#### FR-LINUX-003 远程模组更新
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持远程执行模组扫描、更新和同步操作。
+- 成功标准: 远程模组更新流程与本地操作保持一致的交互体验。
+
+#### FR-LINUX-004 远程日志查看
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持远程查看服务器启动日志和运行状态。
+- 成功标准: 日志通过 SSH 实时流式传输到本地客户端展示。
+
+#### FR-LINUX-005 远程启动/停止
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持远程启动和停止 DST 服务器进程。
+- 成功标准: 用户可在本地客户端触发远程服务器操作并查看执行结果。
+
+### Feature: 多服务器集群管理
+
+#### FR-CLUSTER-001 集群概览
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持同时管理多个 DST 服务器集群。
+- 成功标准: 用户可在单一界面查看所有已添加服务器的状态概览。
+
+#### FR-CLUSTER-002 批量操作
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持对多个服务器批量执行模组更新等操作。
+- 成功标准: 用户可选择多台服务器并行执行相同任务。
+
+### Feature: 云端部署集成
+
+#### FR-CLOUD-001 云服务器快速部署
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应支持主流云平台（AWS EC2、阿里云、腾讯云等）快速创建和配置 DST 服务器实例。
+- 成功标准: 用户可通过向导流程在云端一键部署 DST 服务器。
+
+#### FR-CLOUD-002 云端远程管理
+
+- 目标版本: `>0.0.0`
+- 描述: 系统应集成云服务器远程管理能力，自动建立 SSH 连接。
+- 成功标准: 云服务器创建后自动添加到服务器列表并可立即管理。
+
 ---
 
 ## 4. 非功能需求
@@ -260,6 +377,8 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | NFR-PERF-001 | 应用冷启动应在 3 秒内完成主界面展示 |
 | NFR-PERF-002 | 单次路径校验应在 1 秒内返回结果 |
 | NFR-PERF-003 | 200 个模组的扫描与更新判定应在 5 分钟内完成 |
+| NFR-PERF-004 | 远程 SSH 连接建立应在 5 秒内完成 |
+| NFR-PERF-005 | 远程日志流式传输延迟应小于 1 秒 |
 
 ### 4.2 安全
 
@@ -288,6 +407,10 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | US-004 | `0.0.0` | 作为服主，我希望应用告诉我如何配置 Token 并帮我修改启动脚本。 |
 | US-005 | `0.0.0` | 作为排障人员，我希望在应用内看到启动日志和运行状态。 |
 | US-006 | `>0.0.0` | 作为新手服主，我希望跟着完整向导完成更细的服务器部署。 |
+| US-007 | `>0.0.0` | 作为 macOS 用户，我希望在 Mac 上使用原生图形界面管理 DST 服务器。 |
+| US-008 | `>0.0.0` | 作为服务器管理员，我希望通过 SSH 在本地客户端远程管理 Linux 服务器。 |
+| US-009 | `>0.0.0` | 作为集群管理员，我希望在一个界面管理多台 DST 服务器。 |
+| US-010 | `>0.0.0` | 作为云服务器用户，我希望一键在云端创建并管理 DST 服务器。 |
 
 ---
 
@@ -300,6 +423,8 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | SaveBootstrapRecord | clusterPath, templateSource, createdAt |
 | TokenConfig | clusterPath, tokenMasked, updatedAt |
 | RunTask | taskId, status, startedAt, endedAt, logPath |
+| ServerConnection | connectionId, name, type (local/remote), host, port, username, authMethod, status |
+| CloudInstance | instanceId, provider, region, instanceType, status, sshConnectionId |
 
 ---
 
@@ -326,6 +451,18 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | `stop_server` | 停止后台服务端 |
 | `tail_server_logs` | 推送或读取日志输出 |
 
+### 7.3 远程管理接口
+
+| 接口 | 用途 |
+|------|------|
+| `ssh_connect` | 建立 SSH 连接 |
+| `ssh_disconnect` | 断开 SSH 连接 |
+| `remote_detect_paths` | 远程检测 DST 服务器路径 |
+| `remote_run_mod_update` | 远程执行模组更新 |
+| `remote_start_server` | 远程启动服务器 |
+| `remote_stop_server` | 远程停止服务器 |
+| `remote_tail_logs` | 远程流式读取日志 |
+
 ---
 
 ## 8. 约束与风险
@@ -333,8 +470,10 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 ### 8.1 约束
 
 - 首版仅支持 Windows 本地场景。
-- 前端必须维持 `Tauri + Vue + Vite + shadcn-vue` 方案。
+- 后续版本需支持 macOS 图形界面应用和 Linux 远程管理。
+- 前端必须维持 `Tauri + Vue + Vite + Reka UI` 方案。
 - 当前 Python 模组更新逻辑是首版必须继承的兼容基线。
+- 远程管理必须使用 SSH/SFTP 协议保证安全性。
 
 ### 8.2 风险
 
@@ -381,6 +520,10 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 | 完整搭建向导 | `>0.0.0` |
 | 多配置档管理 | `>0.0.0` |
 | 存档备份与恢复 | `>0.0.0` |
+| macOS 图形界面应用 | `>0.0.0` |
+| Linux 远程管理 | `>0.0.0` |
+| 多服务器集群管理 | `>0.0.0` |
+| 云端部署集成 | `>0.0.0` |
 
 ### 10.2 开放问题
 

@@ -2,5 +2,13 @@
   "version": "1",
   "identifier": "default",
   "description": "Default permissions for core window usage.",
-  "permissions": ["core:default", "core:window:default"]
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "dialog:default",
+    "dialog:allow-open"
+  ]
 }

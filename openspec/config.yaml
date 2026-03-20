@@ -1,20 +1,25 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Tech stack: Vue 3, TypeScript, Tailwind CSS, Reka UI, Tauri 2.0 (Rust backend)
+  Build tools: npm, Cargo, Vite
+  Project: Desktop application for managing Don't Starve Together (DST) game servers
+  Code style: Strict TypeScript mode, Vue 3 `<script setup lang="ts">` syntax
+  Import convention: Use `@/` path alias for project imports
+  UI components: Reka UI components from `@/components/ui/`, use `cn()` utility for class merging
+  Naming: PascalCase for components, camelCase for variables/functions, kebab-case for utility files
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Keep proposals under 500 words
+    - Include DST server-specific considerations
+  specs:
+    - Use clear section headers
+    - Include example commands/paths for DST configuration
+  design:
+    - Include component structure if UI changes
+    - Document Tauri IPC commands if backend changes
+  tasks:
+    - Break tasks into max 2-hour chunks
+    - Mark Tauri commands with [Rust] tag
+    - Mark Vue components with [Vue] tag

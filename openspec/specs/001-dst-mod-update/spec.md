@@ -74,6 +74,21 @@
 - **FR-011**: 系统 MUST 提供名为 `mods_update.py` 的可执行更新脚本入口，允许通过命令行传入路径参数来触发更新流程。
 - **FR-012**: 系统 MUST 提供可被其他项目调用的核心更新能力，允许通过传入路径参数复用该功能。
 
+### Requirement: Steam Path Input for Mod Update
+The mod update flow SHALL use a validated Steam path as its primary source configuration. The path MAY come from automatic Steam path detection or manual user input, but MUST be validated before update execution.
+
+#### Scenario: Use auto-detected valid path by default
+- **WHEN** Steam path detection returns status `valid`
+- **THEN** the mod update flow pre-fills and uses that path as the default source path
+
+#### Scenario: Fallback to manual path
+- **WHEN** detection status is `not_found` or `invalid`
+- **THEN** the user MUST provide a manual Steam path that passes validation before the update starts
+
+#### Scenario: Reject unvalidated path
+- **WHEN** the user attempts to run mod update with a path that has not passed validation
+- **THEN** the system blocks execution and displays the validation reason
+
 ### Key Entities *(include if feature involves data)*
 
 - **Steam 安装目录**: 用户指定的 Steam 根路径，用于定位 `steamapps` 结构。
