@@ -101,7 +101,40 @@ DSTServerTool 位于本地管理员、Steam 安装目录、DST Dedicated Server 
 - 前端已迁移到 Vue 3 + Vite + shadcn-vue，并已有可折叠基础壳层。
 - Python 模组更新核心已可执行。
 
-### 2.5 版本范围划分
+### 2.6 项目文件结构
+
+```
+DSTServerTool/
+├── src/                      # Vue.js 前端源码
+│   ├── components/ui/        # Reka UI 组件库
+│   ├── lib/                  # 工具函数和辅助模块
+│   ├── router/               # Vue Router 配置
+│   └── views/                # 页面组件
+├── src-tauri/                # Rust 后端 (Tauri)
+│   ├── src/
+│   │   ├── main.rs           # 入口点
+│   │   ├── utils/
+│   │   │   └── error_code.rs # 错误码定义
+│   │   ├── services/
+│   │   │   └── steam_detection.rs  # Steam/DST 检测服务
+│   │   └── commands/
+│   │       └── mod.rs        # Tauri 命令模块
+│   ├── Cargo.toml            # Rust 依赖配置
+│   └── tauri.conf.json       # Tauri 配置
+├── docs/                     # 文档目录
+│   ├── 0.0.0/
+│   │   └── Proposal.md       # 版本提案
+│   └── SRS.md                # 软件需求规格说明书
+├── devlog/                   # 开发日志目录
+│   └── SRS.md                # 开发中 SRS
+├── openspec/                 # OpenSpec 变更跟踪
+├── specs/                    # 技术规格文档
+├── mods_update/              # 模组更新脚本
+├── AGENTS.md                 # Agent 开发指南
+└── README.md                 # 项目说明文档
+```
+
+### 2.7 版本范围划分
 
 | 版本 | Feature | 说明 |
 |------|---------|------|

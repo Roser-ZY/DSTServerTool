@@ -172,7 +172,8 @@ vite.config.ts.timestamp-*
 __MACOSX/
 .AppleDouble
 .LSOverride
-Icon[]
+Icon[
+]
 
 # Thumbnails
 ._*
@@ -255,3 +256,5 @@ dist/
 pip-wheel-metadata/
 
 .codex
+
+.idea

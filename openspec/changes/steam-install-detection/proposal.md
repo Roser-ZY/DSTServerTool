@@ -13,6 +13,7 @@
 - 在 `src-tauri/src/` 下新增安装检测相关的服务层结构，建立第一版业务逻辑骨架
 - 增加 Steam 安装检测能力，支持 Windows 与 macOS
 - 在定位 Steam 根路径后，基于 `libraryfolders.vdf` 与 `appmanifest_*.acf` 检测 DST 与 DST Dedicated Server 的安装目录
+- 检测结果采用分级验证模型（路径层、manifest 层、可执行文件层），避免二元已安装/未安装带来的误判
 - 新增统一错误码定义，覆盖 Steam、DST、Dedicated Server 以及手动路径校验场景
 - 提供可被前端调用的 Tauri IPC 接口，返回检测结果、错误信息和建议操作
 - 支持手动指定 Steam、DST 与 Dedicated Server 路径，并对输入路径进行独立校验
